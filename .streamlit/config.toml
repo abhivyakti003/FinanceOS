@@ -1,0 +1,37 @@
+# Minimal theme. Users can switch light / dark from the ⋮ menu → Settings.
+
+[theme]
+font = "Manrope:https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap, sans-serif"
+baseFontSize = 15
+baseRadius = "0.75rem"
+buttonRadius = "0.6rem"
+showWidgetBorder = true
+showSidebarBorder = true
+headingFontWeights = [700, 650, 600, 600, 600, 600]
+metricValueFontWeight = 600
+chartCategoricalColors = ["#1F9D73", "#5B8DEF", "#E0A33A", "#D0553F", "#8B7BD8", "#3BA7A0", "#8A8F98", "#D46FA0"]
+
+[theme.light]
+primaryColor = "#127A5B"
+backgroundColor = "#F5F6F4"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#17191C"
+borderColor = "#E2E4DF"
+dataframeHeaderBackgroundColor = "#F5F6F4"
+
+[theme.dark]
+primaryColor = "#3FB68B"
+backgroundColor = "#111312"
+secondaryBackgroundColor = "#1A1D1B"
+textColor = "#E8EAE6"
+borderColor = "#2A2E2B"
+dataframeHeaderBackgroundColor = "#1A1D1B"
+
+[client]
+# Shows error details while you develop. Docker and production set this to false
+# (STREAMLIT_CLIENT_SHOW_ERROR_DETAILS=false).
+showErrorDetails = true
+toolbarMode = "minimal"
+
+[server]
+maxUploadSize = 15

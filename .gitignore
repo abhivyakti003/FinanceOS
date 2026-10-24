@@ -1,0 +1,31 @@
+# Secrets and data
+.env
+*.db
+*.db-journal
+*.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+.pytest_cache/
+
+# Generated files
+reports/
+*.pdf
+!samples/*.pdf
+*.zip
+notifications.log
+backups/
+backups.log
+logs/
+
+*.db-*
+.ruff_cache/
+
+# Bank statements and personal files
+*.csv
+*.xlsx
+*.xls
+!samples/*.csv

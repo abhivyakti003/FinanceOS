@@ -1,0 +1,25 @@
+# App
+streamlit>=1.66
+SQLAlchemy>=2.0.30
+alembic>=1.13
+pandas>=2.2
+numpy>=2.0
+plotly>=5.20
+matplotlib>=3.9
+reportlab>=4.2
+python-dotenv>=1.0
+python-dateutil>=2.9
+
+# Login and email verification
+bcrypt>=4.1
+email-validator>=2.2
+dnspython>=2.6
+
+# Statement import and investments (CAS)
+openpyxl>=3.1
+xlrd>=2.0
+pdfplumber>=0.11
+casparser>=1.0
+
+# Development
+pytest>=8.0

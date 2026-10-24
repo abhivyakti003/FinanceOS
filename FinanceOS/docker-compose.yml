@@ -1,0 +1,77 @@
+# Production stack: PostgreSQL + app + daily jobs (+ optional HTTPS proxy).
+#
+#   cp .env.example .env      # then fill it in (APP_ENV=production, POSTGRES_PASSWORD, email...)
+#   docker compose up -d --build
+#   docker compose --profile https up -d   # also start Caddy for HTTPS (set DOMAIN in .env)
+#
+# See docs/DEPLOYMENT.md.
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: financeos
+      POSTGRES_USER: financeos
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U financeos -d financeos"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql://financeos:${POSTGRES_PASSWORD}@db:5432/financeos
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8501:8501"   # only reachable through the proxy / localhost
+    volumes:
+      - backups:/app/backups
+      - logs:/app/logs
+
+  worker:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql://financeos:${POSTGRES_PASSWORD}@db:5432/financeos
+    depends_on:
+      db:
+        condition: service_healthy
+    command: ["python", "scripts/scheduler.py"]
+    healthcheck:
+      disable: true
+    volumes:
+      - backups:/app/backups
+      - logs:/app/logs
+
+  caddy:
+    image: caddy:2-alpine
+    profiles: ["https"]
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN in .env to use HTTPS}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      - app
+
+volumes:
+  pgdata:
+  backups:
+  logs:
+  caddy_data:

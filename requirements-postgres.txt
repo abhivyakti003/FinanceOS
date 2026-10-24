@@ -1,0 +1,3 @@
+# Only needed if you use PostgreSQL instead of the default SQLite file.
+#   pip install -r requirements-postgres.txt
+psycopg[binary]>=3.2
