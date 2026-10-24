@@ -3,7 +3,7 @@
 Personal finance for India: every bank account, card, investment, bill and goal in one
 calm place, with verified sign-up, family sharing and a full admin and security toolkit.
 
-![CI](https://github.com/<your-user>/financeos/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/abhivyakti003/FinanceOS/actions/workflows/ci.yml/badge.svg)](https://github.com/abhivyakti003/FinanceOS/actions/workflows/ci.yml)
 
 ## Features
 
