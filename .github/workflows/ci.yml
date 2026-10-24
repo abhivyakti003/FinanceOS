@@ -29,11 +29,11 @@ jobs:
       - name: Lint
         run: ruff check .
       - name: Tests (SQLite)
-        run: pytest -q
+        run: python -m pytest -q
       - name: Tests (PostgreSQL)
         env:
           TEST_DATABASE_URL: postgresql://financeos:testpass@localhost:5432/financeos_test
-        run: pytest -q
+        run: python -m pytest -q
       - name: Migrations apply cleanly on a fresh PostgreSQL database
         env:
           PGPASSWORD: testpass
